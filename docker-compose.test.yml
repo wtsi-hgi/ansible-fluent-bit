@@ -1,0 +1,15 @@
+#---
+#
+#sut:
+#  build: .
+#  command: run_tests.sh
+
+
+---
+
+version: "3"
+services:
+  ansible-fluent-bit-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test

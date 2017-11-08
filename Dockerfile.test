@@ -1,0 +1,9 @@
+FROM python:3
+
+RUN pip install ansible
+
+WORKDIR /ansible-fluent-bit
+ADD . .
+
+WORKDIR /ansible-fluent-bit/tests
+CMD ["ansible-playbook", "-c", "local", "-i", "localhost,", "test.yml"]
