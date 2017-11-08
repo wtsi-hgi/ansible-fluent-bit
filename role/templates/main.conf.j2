@@ -1,0 +1,12 @@
+[SERVICE]
+    Flush {{ flush }}
+    Daemon {{ daemon }}
+    Log_Level {{ log_level }}
+
+{% for item in fluent_bit_input_configurations %}
+@INCLUDE {{ item.name }}.conf
+{% endfor %}
+
+{% for item in fluent_bit_output_configurations %}
+@INCLUDE {{ item.name }}.conf
+{% endfor %}

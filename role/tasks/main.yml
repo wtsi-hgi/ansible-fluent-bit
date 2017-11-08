@@ -1,0 +1,63 @@
+---
+
+- name: install package key
+  become: yes
+  apt_key:
+    url: http://packages.fluentbit.io/fluentbit.key
+    state: present
+
+- name: add FluentBit apt repository
+  become: yes
+  apt_repository:
+    repo: "deb http://packages.fluentbit.io/ubuntu {{ ansible_distribution_release }} main"
+    update_cache: yes
+    state: present
+
+- name: install Fluent Bit
+  become: yes
+  apt:
+    name: td-agent-bit
+    update_cache: yes
+    cache_valid_time: "{{ fluent_bit_apt_cache_valid_time }}"
+  notify:
+    - "{{ fluent_bit_restart_listener }}"
+
+- name: create input and output configuration directories
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+  with_items:
+    - "{{ fluent_bit_input_configurations }}"
+    - "{{ fluent_bit_output_configurations }}"
+
+- name: add Fluent Bit input configurations
+  become: yes
+  template:
+    src: input.conf.j2
+    dest: "{{ fluent_bit_input_configuration_directory }}/{{ item.name }}"
+    mode: 0600
+  with_items: "{{ fluent_bit_input_configurations }}"
+  notify:
+    - "{{ fluent_bit_restart_listener }}"
+
+- name: add Fluent Bit output configurations
+  become: yes
+  template:
+    src: output.conf.j2
+    dest: "{{ fluent_bit_output_configuration_directory }}/{{ item.name }}"
+    mode: 0600
+  with_items: "{{ fluent_bit_output_configurations }}"
+  notify:
+    - "{{ fluent_bit_restart_listener }}"
+
+- name: configure Fluent Bit
+  become: yes
+  template:
+    src: main.conf.j2
+    dest: "{{ fluent_bit_main_configuration }}"
+    mode: 0600
+  notify:
+    - "{{ fluent_bit_restart_listener }}"
+  

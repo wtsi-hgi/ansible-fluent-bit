@@ -1,0 +1,7 @@
+---
+
+- name: re-start Fluent Bit agent
+  service:
+    name: td-agent-bit
+    state: restart
+  listen: "{{ fluent_bit_restart_listener }}"

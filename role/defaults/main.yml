@@ -1,0 +1,9 @@
+---
+
+fluent_bit_apt_cache_valid_time: 3600
+
+fluent_bit_main_configuration: /etc/td-agent-bit/td-agent-bit.conf
+fluent_bit_input_configuration_directory: /etc/td-agent-bit/inputs.d
+
+fluent_bit_input_configurations: []
+fluent_bit_output_configurations: []
