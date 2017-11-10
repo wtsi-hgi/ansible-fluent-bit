@@ -60,4 +60,3 @@
     mode: 0600
   notify:
     - restart-fluent-bit
-  

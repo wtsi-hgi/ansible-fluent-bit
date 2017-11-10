@@ -1,8 +1,7 @@
 ---
 
-#- name: re-start Fluent Bit agent
-- name: restart-fluent-bit
+- name: re-start Fluent Bit agent
   service:
     name: td-agent-bit
-    state: restart
-#  listen: restart-fluent-bit
+    state: restarted
+  listen: restart-fluent-bit

@@ -1,7 +1,7 @@
 [SERVICE]
-    Flush {{ flush }}
-    Daemon {{ daemon }}
-    Log_Level {{ log_level }}
+    Flush {{ fluent_bit_flush }}
+    Daemon {{ fluent_bit_daemon }}
+    Log_Level {{ fluent_bit_log_level }}
 
 {% for item in fluent_bit_input_configurations %}
 @INCLUDE {{ item.name }}.conf
