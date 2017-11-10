@@ -6,8 +6,8 @@ services:
   ansible-fluent-bit-test:
     container_name: ansible-fluent-bit-test
     build:
-      context: .
-      dockerfile: Dockerfile.test
+      context: ../../
+      dockerfile: tests/docker/Dockerfile.test
     depends_on:
       - ubuntu-xenial-test-instance
       - ubuntu-jessie-test-instance
