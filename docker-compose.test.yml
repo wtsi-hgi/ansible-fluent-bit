@@ -1,15 +1,28 @@
-#---
-#
-#sut:
-#  build: .
-#  command: run_tests.sh
-
-
 ---
 
 version: "3"
+
 services:
   ansible-fluent-bit-test:
+    container_name: ansible-fluent-bit-test
     build:
       context: .
       dockerfile: Dockerfile.test
+    depends_on:
+      - ubuntu-xenial-test-instance
+      - ubuntu-jessie-test-instance
+
+  ubuntu-xenial-test-instance:
+    container_name: ubuntu-xenial-test-instance
+    build:
+      context: .
+      dockerfile: Dockerfile.xenial.test
+
+  ubuntu-jessie-test-instance:
+    container_name: ubuntu-jessie-test-instance
+    build:
+      context: .
+      dockerfile: Dockerfile.jessie.test
+
+networks:
+  default:

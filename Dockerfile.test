@@ -1,9 +1,15 @@
 FROM python:3
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+         sshpass \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN pip install ansible
 
 WORKDIR /ansible-fluent-bit
 ADD . .
 
 WORKDIR /ansible-fluent-bit/tests
-CMD ["ansible-playbook", "-c", "local", "-i", "localhost,", "test.yml"]
+ENV ANSIBLE_HOST_KEY_CHECKING=False
+CMD ["ansible-playbook", "-i", "inventory.ini", "test.yml"]

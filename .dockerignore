@@ -1,0 +1,8 @@
+*.retry
+.gitignore
+.travis.yml
+docker-compose.test.yml
+Dockerfile.test
+LICENSE.txt
+README.md
+run-tests.sh
